@@ -12,11 +12,29 @@ export class UserListComponent implements OnInit {
 
   users$: Observable<User[]> = this.userService.getAll();
 
+  filterPhrase: string = '';
+  filterKey: string = 'name';
+
+  deleteUser: User = new User;
+
+
   constructor(
     private userService: UserService,
   ) { }
 
   ngOnInit(): void {
+     this.userService.getAll();
+     this.users$.subscribe();
   }
+
+  deleteThis(user: User): void {
+    this.userService.remove(this.deleteUser).subscribe(
+    () => {
+             this.userService.getAll();
+           }
+  )
+}
+
+  
 
 }

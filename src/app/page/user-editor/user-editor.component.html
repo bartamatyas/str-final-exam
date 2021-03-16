@@ -10,7 +10,12 @@
         class="form-control"
         type="text"
         name="name"
+        pattern=".{8,40}"
+        required
         [(ngModel)]="user.name">
+        <div [hidden]="userForm.controls.name?.valid">
+          The name has to be minimum 8 and maximum 20 characters!
+        </div>
       </div>
       <div class="form-group">
         <label>Email</label>
@@ -20,7 +25,12 @@
           class="form-control"
           type="text"
           name="email"
+          pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+          required
           [(ngModel)]="user.email">
+          <div [hidden]="userForm.controls.email?.valid">
+            Has to be a valid email address!
+          </div>
         </div>
         <div class="form-group">
           <label>Address</label>
@@ -29,7 +39,12 @@
           class="form-control"
           type="text"
           name="address"
+          pattern=".{8,100}"
+          required
           [(ngModel)]="user.address">
+          <div [hidden]="userForm.controls.address?.valid">
+            The address has to be minimum 8 and maximum 100 characters!
+          </div>
       </div>
       <div class="form-group">
         <label>Active</label>
@@ -39,7 +54,7 @@
           <option [ngValue]="false">inactive</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary btn-block mt-5">
+      <button type="submit" [disabled]="userForm.invalid || updating" class="btn btn-primary btn-block mt-5">
         <i class="fa fa-save"></i>
       </button>
     </form>
